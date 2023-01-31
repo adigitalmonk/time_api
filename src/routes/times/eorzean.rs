@@ -1,7 +1,7 @@
 static HOUR: i64 = 3600;
 static MINUTE: i64 = 60;
 static SECOND: i64 = 1;
-static EORZEAN_CONSTANT: f64 = 20.571428571428573;
+static EORZEAN_CONSTANT: f64 = 20.571_428_571_428_573;
 
 pub fn get_eorzean_time(current_timestamp: i64) -> (i64, i64, i64) {
     let eorzea_timestamp = ((current_timestamp as f64) * EORZEAN_CONSTANT) as i64;
@@ -23,6 +23,6 @@ mod tests {
 
     #[test]
     fn test_get_time_at_some_date() {
-        assert_eq!(get_eorzean_time(1674704475423), (19, 33, 36));
+        assert_eq!(get_eorzean_time(1_674_704_475_423), (19, 33, 36));
     }
 }

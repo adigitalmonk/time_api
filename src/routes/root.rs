@@ -27,14 +27,14 @@ pub async fn controller(Query(payload): Query<GreetUser>) -> impl IntoResponse {
     match payload.name {
         Some(name) => {
             let name = title_case(&name);
-            (StatusCode::OK, format!("Hello, {}.", name))
+            (StatusCode::OK, format!("Hello, {name}."))
         }
-        _ => (StatusCode::BAD_REQUEST, "Missing name".to_owned()),
+        _ => (StatusCode::BAD_REQUEST, "Missing param: name".to_owned()),
     }
 }
 
 fn title_case(name: &str) -> String {
-    name.split(" ")
+    name.split(' ')
         .fold(String::new(), |a, b| a + " " + &ucfirst(b))
         .trim()
         .to_string()
