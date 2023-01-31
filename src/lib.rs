@@ -2,12 +2,18 @@ use std::net::SocketAddr;
 
 mod routes;
 
+/// # Panics
+/// Will panic if the server could not start
 pub async fn run() {
     let app = routes::build();
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
 
-    axum::Server::bind(&addr)
+    let server_future = axum::Server::bind(&addr)
         .serve(app.into_make_service())
-        .await
-        .unwrap()
+        .await;
+
+    match server_future {
+        Ok(_) => println!("Server started."),
+        Err(error) => panic!("Server could not start: {error:?}"),
+    };
 }

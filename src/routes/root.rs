@@ -24,13 +24,13 @@ where
 }
 
 pub async fn controller(Query(payload): Query<GreetUser>) -> impl IntoResponse {
-    match payload.name {
-        Some(name) => {
+    payload.name.map_or_else(
+        || (StatusCode::BAD_REQUEST, "Missing param: name".to_owned()),
+        |name| {
             let name = title_case(&name);
             (StatusCode::OK, format!("Hello, {name}."))
-        }
-        _ => (StatusCode::BAD_REQUEST, "Missing param: name".to_owned()),
-    }
+        },
+    )
 }
 
 fn title_case(name: &str) -> String {
