@@ -1,10 +1,10 @@
-use axum::{routing::get, Router};
-
 mod root;
 mod times;
 
-pub fn build() -> Router {
+use axum::{routing::get, Router};
+
+pub fn routes() -> Router {
     Router::new()
-        .route("/", get(root::controller))
-        .route("/times", get(times::controller))
+        .route("/", get(super::routes::root::handler))
+        .route("/times", get(super::routes::times::handler))
 }

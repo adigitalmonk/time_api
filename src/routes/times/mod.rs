@@ -15,7 +15,12 @@ struct Timestamp {
     eorzea: String,
 }
 
-pub async fn controller() -> impl IntoResponse {
+// #[derive(Serialize)]
+// struct TimeResponse {
+//     time: String,
+// }
+
+pub async fn handler() -> impl IntoResponse {
     let current_time = Utc::now();
     let eorzean_time = eorzean::from_datetime(current_time);
 
